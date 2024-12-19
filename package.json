@@ -1,0 +1,19 @@
+{
+  "name": "traceblade-rn",
+  "version": "1.0.0",
+  "description": "traceblade react native sdk to send user events to backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "koundinya Gavicherla",
+  "license": "ISC",
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.1.0",
+    "axios": "^1.7.9",
+    "install": "^0.13.0",
+    "npm": "^10.9.2",
+    "react-native": "^0.76.5",
+    "react-native-threads": "^0.0.19"
+  }
+}
