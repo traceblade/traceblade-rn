@@ -1,2 +1,2 @@
 import { Event } from './types';
-export declare const sendEventToBackend: (event: Event) => Promise<void>;
+export declare const sendEventToBackend: (event: Event, baseUrl: string) => Promise<void>;

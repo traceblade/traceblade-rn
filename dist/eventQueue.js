@@ -27,12 +27,12 @@ const queueEvent = (event) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.queueEvent = queueEvent;
 // Process all queued events
-const processEventQueue = (apiKey) => __awaiter(void 0, void 0, void 0, function* () {
+const processEventQueue = (apiKey, baseUrl) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const existingQueue = yield async_storage_1.default.getItem(EVENT_QUEUE_KEY);
         const events = existingQueue ? JSON.parse(existingQueue) : [];
         for (const event of events) {
-            yield (0, apiClient_1.sendEventToBackend)(event);
+            yield (0, apiClient_1.sendEventToBackend)(event, baseUrl);
         }
         // Clear the queue after processing
         yield async_storage_1.default.removeItem(EVENT_QUEUE_KEY);

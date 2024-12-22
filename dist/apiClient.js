@@ -13,10 +13,10 @@ exports.sendEventToBackend = void 0;
 const axios_1 = require("axios");
 const api_1 = require("./constants/api");
 const helper_1 = require("./constants/helper");
-const getUserEventsPath = () => (0, helper_1.getPath)(api_1.API_PATH.PUSH_EVENTS);
-const sendEventToBackend = (event) => __awaiter(void 0, void 0, void 0, function* () {
+const sendEventToBackend = (event, baseUrl) => __awaiter(void 0, void 0, void 0, function* () {
+    const path = (0, helper_1.getPath)(api_1.API_PATH.PUSH_EVENTS, baseUrl);
     try {
-        const response = yield axios_1.default.post(getUserEventsPath(), event, {
+        const response = yield axios_1.default.post(path, event, {
             headers: {
                 'Content-Type': 'application/json',
                 'traceblade-api-key': event.apiKey,

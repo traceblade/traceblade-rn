@@ -13,7 +13,7 @@ const react_native_1 = require("react-native");
 const eventQueue_1 = require("./eventQueue");
 const apiClient_1 = require("./apiClient");
 class TracebladeSDK {
-    constructor(apiKey) {
+    constructor(apiKey, baseUrl) {
         this.appStateSubscription = null;
         this.handleAppStateChange = (nextAppState) => __awaiter(this, void 0, void 0, function* () {
             if (this.currentAppState.match(/inactive|background/) &&
@@ -23,12 +23,12 @@ class TracebladeSDK {
             }
             this.currentAppState = nextAppState;
         });
-        fetch('http://api.traceblade.xyz/api/health');
         if (!apiKey) {
             throw new Error('API key is required to initialize Traceblade SDK.');
         }
         this.apiKey = apiKey;
         this.currentAppState = react_native_1.AppState.currentState;
+        this.baseUrl = baseUrl;
         // Add event listener and store the subscription
         this.appStateSubscription = react_native_1.AppState.addEventListener('change', this.handleAppStateChange);
     }
@@ -38,7 +38,7 @@ class TracebladeSDK {
                 apiKey: this.apiKey,
                 eventMetadata: Object.assign(Object.assign({}, metadata), { eventName, timestamp: new Date().toISOString() }),
             };
-            yield (0, apiClient_1.sendEventToBackend)(event);
+            yield (0, apiClient_1.sendEventToBackend)(event, this.baseUrl);
             if (this.currentAppState.match(/inactive|background/)) {
                 yield (0, eventQueue_1.queueEvent)(event);
             }
@@ -49,7 +49,7 @@ class TracebladeSDK {
     flushEvents() {
         return __awaiter(this, void 0, void 0, function* () {
             console.log('Flushing events...');
-            yield (0, eventQueue_1.processEventQueue)(this.apiKey);
+            yield (0, eventQueue_1.processEventQueue)(this.apiKey, this.baseUrl);
             // Logic to flush events
         });
     }

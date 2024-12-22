@@ -1,1 +1,1 @@
-export declare const getPath: (path: string) => string;
+export declare const getPath: (path: string, baseUrl: string) => string;
