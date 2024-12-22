@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_native_1 = require("react-native");
 const eventQueue_1 = require("./eventQueue");
+const apiClient_1 = require("./apiClient");
 class TracebladeSDK {
     constructor(apiKey) {
         this.appStateSubscription = null;
@@ -36,7 +37,12 @@ class TracebladeSDK {
                 apiKey: this.apiKey,
                 eventMetadata: Object.assign(Object.assign({}, metadata), { eventName, timestamp: new Date().toISOString() }),
             };
-            yield (0, eventQueue_1.queueEvent)(event);
+            if (this.currentAppState.match(/inactive|background/)) {
+                yield (0, eventQueue_1.queueEvent)(event);
+            }
+            else {
+                yield (0, apiClient_1.sendEventToBackend)(event);
+            }
             // Logic to queue and send events
             console.log('Tracking event:', event);
         });

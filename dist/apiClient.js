@@ -11,11 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendEventToBackend = void 0;
 const axios_1 = require("axios");
-const BASE_URL = 'https://api.traceblade.xyz/api';
+const api_1 = require("./constants/api");
+const helper_1 = require("./constants/helper");
+const getUserEventsPath = () => (0, helper_1.getPath)(api_1.API_PATH.PUSH_EVENTS);
 const sendEventToBackend = (event) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield axios_1.default.post(`${BASE_URL}/events`, event, {
-            headers: { 'Content-Type': 'application/json' },
+        const response = yield axios_1.default.post(getUserEventsPath(), event, {
+            headers: {
+                'Content-Type': 'application/json',
+                'traceblade-api-key': event.apiKey,
+            },
         });
         console.log('Event sent successfully:', response.data);
     }

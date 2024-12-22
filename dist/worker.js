@@ -19,10 +19,10 @@ if (react_native_threads_1.parentPort) {
             const { event, apiKey, baseUrl } = payload;
             try {
                 // Make the API call
-                const response = yield axios_1.default.post(`${baseUrl}/events`, event, {
+                const response = yield axios_1.default.post(`${baseUrl}/user-events`, event, {
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${apiKey}`,
+                        'traceblade-api-key': apiKey,
                     },
                 });
                 // Notify the main thread of success
