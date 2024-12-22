@@ -3,17 +3,3 @@ tests/
 node_modules/
 *.log
 *.ts
-*.jsx
-*.js
-*.d.ts
-*.d.ts.map
-*.js.map
-*.jsx.map
-*.ts.map
-*.tsx.map
-*.tsx
-*.json
-*.md
-*.txt
-*.yml
-*.yaml
