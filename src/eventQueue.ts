@@ -17,13 +17,13 @@ export const queueEvent = async (event: Event): Promise<void> => {
 };
 
 // Process all queued events
-export const processEventQueue = async (apiKey: string): Promise<void> => {
+export const processEventQueue = async (apiKey: string, baseUrl: string): Promise<void> => {
   try {
     const existingQueue = await AsyncStorage.getItem(EVENT_QUEUE_KEY);
     const events: Event[] = existingQueue ? JSON.parse(existingQueue) : [];
 
     for (const event of events) {
-      await sendEventToBackend(event);
+      await sendEventToBackend(event, baseUrl);
     }
 
     // Clear the queue after processing

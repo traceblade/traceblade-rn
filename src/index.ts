@@ -6,14 +6,15 @@ class TracebladeSDK {
   private apiKey: string;
   private currentAppState: AppStateStatus;
   private appStateSubscription: { remove: () => void } | null = null;
+  private baseUrl: string;
 
-  constructor(apiKey: string) {
-    fetch('http://api.traceblade.xyz/api/health')
+  constructor(apiKey: string, baseUrl: string) {
     if (!apiKey) {
       throw new Error('API key is required to initialize Traceblade SDK.');
     }
     this.apiKey = apiKey;
     this.currentAppState = AppState.currentState;
+    this.baseUrl = baseUrl;
 
     // Add event listener and store the subscription
     this.appStateSubscription = AppState.addEventListener(
@@ -44,7 +45,7 @@ class TracebladeSDK {
         timestamp: new Date().toISOString(),
       },
     };
-    await sendEventToBackend(event);
+    await sendEventToBackend(event, this.baseUrl);
     if (this.currentAppState.match(/inactive|background/)) {
       await queueEvent(event);
     } 
@@ -55,7 +56,7 @@ class TracebladeSDK {
 
   public async flushEvents(): Promise<void> {
     console.log('Flushing events...');
-    await processEventQueue(this.apiKey);
+    await processEventQueue(this.apiKey, this.baseUrl);
     // Logic to flush events
   }
 
