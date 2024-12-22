@@ -8,12 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.processEventQueue = exports.queueEvent = void 0;
-const async_storage_1 = __importDefault(require("@react-native-async-storage/async-storage"));
+const async_storage_1 = require("@react-native-async-storage/async-storage");
 const apiClient_1 = require("./apiClient");
 const EVENT_QUEUE_KEY = 'traceblade_event_queue';
 // Add an event to the queue
