@@ -43,11 +43,10 @@ class TracebladeSDK {
         timestamp: new Date().toISOString(),
       },
     };
+    await sendEventToBackend(event);
     if (this.currentAppState.match(/inactive|background/)) {
       await queueEvent(event);
-    } else {
-      await sendEventToBackend(event);
-    }
+    } 
 
     // Logic to queue and send events
     console.log('Tracking event:', event);

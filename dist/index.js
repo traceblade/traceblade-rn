@@ -37,11 +37,9 @@ class TracebladeSDK {
                 apiKey: this.apiKey,
                 eventMetadata: Object.assign(Object.assign({}, metadata), { eventName, timestamp: new Date().toISOString() }),
             };
+            yield (0, apiClient_1.sendEventToBackend)(event);
             if (this.currentAppState.match(/inactive|background/)) {
                 yield (0, eventQueue_1.queueEvent)(event);
-            }
-            else {
-                yield (0, apiClient_1.sendEventToBackend)(event);
             }
             // Logic to queue and send events
             console.log('Tracking event:', event);
