@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Event } from './types';
 
-const BASE_URL = 'https://api.traceblade.xyz/api'; // Replace with your backend URL
+import TracebladeSDK from './index';
+
+const BASE_URL = 'https://api.traceblade.xyz/api';
 
 export const sendEventToBackend = async (event: Event): Promise<void> => {
   try {

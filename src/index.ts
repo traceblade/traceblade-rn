@@ -2,7 +2,7 @@ import { AppState, AppStateStatus } from 'react-native';
 import { processEventQueue, queueEvent } from './eventQueue';
 import { sendEventToBackend } from './apiClient';
 
-export class TracebladeSDK {
+class TracebladeSDK {
   private apiKey: string;
   private currentAppState: AppStateStatus;
   private appStateSubscription: { remove: () => void } | null = null;
@@ -63,3 +63,5 @@ export class TracebladeSDK {
     }
   }
 }
+
+export default TracebladeSDK;
