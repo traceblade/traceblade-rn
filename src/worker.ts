@@ -15,7 +15,7 @@ if (parentPort) {
 
       try {
         // Make the API call
-        const response = await axios.post(`${baseUrl}/events`, event, {
+        const response = await axios.post(`${baseUrl}/user-events`, event, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${apiKey}`,
