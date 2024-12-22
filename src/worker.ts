@@ -18,7 +18,7 @@ if (parentPort) {
         const response = await axios.post(`${baseUrl}/user-events`, event, {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
+            'traceblade-api-key': apiKey,
           },
         });
 
