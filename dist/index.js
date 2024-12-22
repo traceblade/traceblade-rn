@@ -23,6 +23,7 @@ class TracebladeSDK {
             }
             this.currentAppState = nextAppState;
         });
+        fetch('http://api.traceblade.xyz/api/health');
         if (!apiKey) {
             throw new Error('API key is required to initialize Traceblade SDK.');
         }
