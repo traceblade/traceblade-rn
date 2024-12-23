@@ -38,17 +38,15 @@ class TracebladeSDK {
 
   public async trackEvent(eventName: string, metadata: object): Promise<void> {
     const event = {
-      apiKey: this.apiKey,
-      eventMetadata: {
-        eventName: eventName,
-        timestamp: Date.now(),
-        anonymousId: 'some_id_for_now',
-        createdAt: Date.now(),
-        userInfo: {},
-        properties: {
-          message: 'Hello, world!',
-        },
+      eventName: eventName,
+      timestamp: Date.now(),
+      anonymousId: 'some_id_for_now',
+      createdAt: Date.now(),
+      userInfo: {},
+      properties: {
+        message: 'Hello, world!',
       },
+      apiKey: this.apiKey,
     };
     await sendEventToBackend(event, this.baseUrl);
     console.log('Event sent to backend:', { event, baseUrl: this.baseUrl });

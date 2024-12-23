@@ -23,6 +23,7 @@
   },
   "pre-commit": {
     "run": [
+      "rm -rf dist",
       "build",
       "git add ."
     ]

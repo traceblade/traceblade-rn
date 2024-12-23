@@ -4,6 +4,10 @@ export interface EventMetadata {
 }
 
 export interface Event {
-  apiKey: string;
-  eventMetadata: EventMetadata;
+  eventName: string;
+  timestamp: number;
+  anonymousId?: string;
+  createdAt?: number;
+  userInfo?: object;
+  properties?: object;
 }
