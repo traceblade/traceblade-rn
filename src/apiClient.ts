@@ -19,6 +19,7 @@ export const sendEventToBackend = async (
     });
     console.log('Event sent successfully:', response.data);
   } catch (error) {
+    console.log('error', path);
     console.error('Failed to send event:', error);
   }
 };
