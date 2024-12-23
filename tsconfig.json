@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "CommonJS",
-    "outDir": "dist",
-    "declaration": true,
+    "declaration": true, // Generate .d.ts files
+    "emitDeclarationOnly": true, // Emit only type declarations
+    "outDir": "dist", // Output folder for type declarations
+    "module": "CommonJS", // Ensure compatibility with Node.js
+    "target": "ESNext", // Target modern JavaScript
     "strict": true
   },
   "include": ["src/**/*"],
