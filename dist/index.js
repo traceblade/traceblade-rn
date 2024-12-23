@@ -36,7 +36,16 @@ class TracebladeSDK {
         return __awaiter(this, void 0, void 0, function* () {
             const event = {
                 apiKey: this.apiKey,
-                eventMetadata: Object.assign(Object.assign({}, metadata), { eventName, timestamp: new Date().toISOString() }),
+                eventMetadata: {
+                    eventName: eventName,
+                    timestamp: Date.now(),
+                    anonymousId: 'some_id_for_now',
+                    createdAt: Date.now(),
+                    userInfo: {},
+                    properties: {
+                        message: 'Hello, world!',
+                    },
+                },
             };
             yield (0, apiClient_1.sendEventToBackend)(event, this.baseUrl);
             console.log('Event sent to backend:', { event, baseUrl: this.baseUrl });
