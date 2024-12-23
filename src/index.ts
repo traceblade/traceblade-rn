@@ -49,7 +49,7 @@ class TracebladeSDK {
         anonymousId: anonymousId || 'null',
         userId: this.userId || 'null',
         createdAt: Date.now(),
-        userInfo: this.userInfo || {},
+        // userInfo: this.userInfo || null,
         metadata,
         apiKey: this.apiKey,
       };
@@ -80,11 +80,13 @@ class TracebladeSDK {
   private async getAnonymousId(): Promise<string | null> {
     try {
       const anonymouseId = await AsyncStorage.getItem('tb-anonymousId');
+      console.log('ANONYMOUS_ID', anonymouseId);
       if (!anonymouseId) {
         const newAnonymousId = generateUserId();
         await AsyncStorage.setItem('tb-anonymousId', newAnonymousId);
         return newAnonymousId;
       }
+      console.log('EXISTING_ANONYMOUS_ID', anonymouseId);
       return anonymouseId;
     } catch (error) {
       console.error('Error getting anonymous id:', error);

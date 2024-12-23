@@ -8,7 +8,7 @@ export interface Event {
   timestamp: number;
   anonymousId?: string;
   createdAt?: number;
-  userInfo?: object;
+  userInfo?: object | null;
   metadata?: object;
   apiKey: string;
 }
