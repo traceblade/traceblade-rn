@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { Event } from './types';
 
-import { API_PATH} from './constants/api'
+import { API_PATH } from './constants/api';
 import { getPath } from './constants/helper';
 
-
-export const sendEventToBackend = async (event: Event, baseUrl:string): Promise<void> => {
+export const sendEventToBackend = async (
+  event: Event,
+  baseUrl: string,
+): Promise<void> => {
   const path = getPath(API_PATH.PUSH_EVENTS, baseUrl);
+  console.log('path', path);
   try {
     const response = await axios.post(path, event, {
       headers: {
@@ -19,4 +22,3 @@ export const sendEventToBackend = async (event: Event, baseUrl:string): Promise<
     console.error('Failed to send event:', error);
   }
 };
-
