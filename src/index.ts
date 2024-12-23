@@ -46,9 +46,10 @@ class TracebladeSDK {
       },
     };
     await sendEventToBackend(event, this.baseUrl);
+    console.log('Event sent to backend:', { event, baseUrl: this.baseUrl });
     if (this.currentAppState.match(/inactive|background/)) {
       await queueEvent(event);
-    } 
+    }
 
     // Logic to queue and send events
     console.log('Tracking event:', event);

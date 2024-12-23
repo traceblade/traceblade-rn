@@ -1,9 +1,10 @@
-
-import { BASE_URL  } from "../constants/api";
+import { BASE_URL } from '../constants/api';
 
 export const getPath = (path: string, baseUrl: string) => {
-    if(baseUrl) {
-        return `${baseUrl}/${path}`;
-    }
-    return `${BASE_URL}/${path}`;
-}
+  if (baseUrl) {
+    const url = `${baseUrl}${path}`;
+    console.log('url', url);
+    return url;
+  }
+  return `${BASE_URL}/${path}`;
+};
