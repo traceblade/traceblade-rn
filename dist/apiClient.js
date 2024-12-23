@@ -24,7 +24,7 @@ const sendEventToBackend = async (event, baseUrl) => {
 };
 exports.sendEventToBackend = sendEventToBackend;
 const sendLogToBackend = async (log, baseUrl) => {
-    const path = (0, helper_1.getPath)(api_1.API_PATH.PUSH_EVENTS, baseUrl);
+    const path = (0, helper_1.getPath)(api_1.API_PATH.PUSH_LOGS, baseUrl);
     const temp = {
         ...log,
         traceId: (0, helper_2.getRandomId)(),

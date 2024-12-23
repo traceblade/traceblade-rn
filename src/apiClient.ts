@@ -29,7 +29,7 @@ export const sendLogToBackend = async (
   log: LogType,
   baseUrl: string,
 ): Promise<void> => {
-  const path = getPath(API_PATH.PUSH_EVENTS, baseUrl);
+  const path = getPath(API_PATH.PUSH_LOGS, baseUrl);
   const temp = {
     ...log,
     traceId: getRandomId(),
