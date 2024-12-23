@@ -23,7 +23,8 @@
   },
   "pre-commit": {
     "run": [
-      "build"
+      "build",
+      "git add ."
     ]
   }
 }
