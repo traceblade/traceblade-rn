@@ -40,9 +40,14 @@ class TracebladeSDK {
     const event = {
       apiKey: this.apiKey,
       eventMetadata: {
-        ...metadata,
-        eventName,
-        timestamp: new Date().toISOString(),
+        eventName: eventName,
+        timestamp: Date.now(),
+        anonymousId: 'some_id_for_now',
+        createdAt: Date.now(),
+        userInfo: {},
+        properties: {
+          message: 'Hello, world!',
+        },
       },
     };
     await sendEventToBackend(event, this.baseUrl);
