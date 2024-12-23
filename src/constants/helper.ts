@@ -6,5 +6,5 @@ export const getPath = (path: string, baseUrl: string) => {
     console.log('url', url);
     return url;
   }
-  return `${BASE_URL}/${path}`;
+  return `${BASE_URL}${path}`;
 };
