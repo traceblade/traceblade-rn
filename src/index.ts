@@ -1,13 +1,16 @@
 import { AppState, AppStateStatus } from 'react-native';
 import { processEventQueue, queueEvent } from './eventQueue';
 import { sendEventToBackend } from './apiClient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { v4 as uuidv4 } from 'uuid';
 
 class TracebladeSDK {
   private apiKey: string;
   private currentAppState: AppStateStatus;
   private appStateSubscription: { remove: () => void } | null = null;
   private baseUrl: string;
-
+  private userId: string | null = null;
+  private userInfo: object | null = null;
   constructor(apiKey: string, baseUrl: string) {
     if (!apiKey) {
       throw new Error('API key is required to initialize Traceblade SDK.');
@@ -37,19 +40,19 @@ class TracebladeSDK {
   };
 
   public async trackEvent(eventName: string, metadata: object): Promise<void> {
+    const anonymousId = await this.getAnonymousId();
     const event = {
       eventName: eventName,
       timestamp: Date.now(),
-      anonymousId: 'some_id_for_now',
+      anonymousId,
+      userId: this.userId || 'null',
       createdAt: Date.now(),
-      userInfo: {},
-      properties: {
-        message: 'Hello, world!',
-      },
+      userInfo: this.userInfo || {},
+      metadata,
       apiKey: this.apiKey,
     };
     await sendEventToBackend(event, this.baseUrl);
-    console.log('Event sent to backend:', { event, baseUrl: this.baseUrl });
+    console.log('Event sent to backend:', this.currentAppState);
     if (this.currentAppState.match(/inactive|background/)) {
       await queueEvent(event);
     }
@@ -62,6 +65,21 @@ class TracebladeSDK {
     console.log('Flushing events...');
     await processEventQueue(this.apiKey, this.baseUrl);
     // Logic to flush events
+  }
+
+  public identify(userId: string, userInfo: object): void {
+    this.userId = userId;
+    this.userInfo = userInfo;
+  }
+
+  private async getAnonymousId(): Promise<string> {
+    const anonymouseId = await AsyncStorage.getItem('tb-anonymousId');
+    if (!anonymouseId) {
+      const newAnonymousId = uuidv4();
+      await AsyncStorage.setItem('tb-anonymousId', newAnonymousId);
+      return newAnonymousId;
+    }
+    return anonymouseId;
   }
 
   public destroy(): void {

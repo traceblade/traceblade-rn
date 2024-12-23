@@ -9,5 +9,6 @@ export interface Event {
   anonymousId?: string;
   createdAt?: number;
   userInfo?: object;
-  properties?: object;
+  metadata?: object;
+  apiKey: string;
 }
