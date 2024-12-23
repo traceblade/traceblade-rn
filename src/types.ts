@@ -12,3 +12,13 @@ export interface Event {
   metadata?: object;
   apiKey: string;
 }
+
+export interface LogType {
+  level: string;
+  message: string;
+  requestBody: any;
+  requestResponse: any;
+  statusCode: number;
+  apiKey: string;
+  metadata?: object;
+}

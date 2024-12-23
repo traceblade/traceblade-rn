@@ -1,6 +1,6 @@
 import { AppState, AppStateStatus } from 'react-native';
 import { processEventQueue, queueEvent } from './eventQueue';
-import { sendEventToBackend } from './apiClient';
+import { sendEventToBackend, sendLogToBackend } from './apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { generateUserId } from './helper/user';
 import { BASE_URL } from './constants/api';
@@ -64,6 +64,39 @@ class TracebladeSDK {
     }
 
     // Logic to queue and send events
+  }
+
+  public log({
+    level,
+    message,
+    requestBody,
+    requestResponse,
+    statusCode,
+    metadata,
+  }: {
+    level: string;
+    message: string;
+    requestBody: any;
+    requestResponse: any;
+    statusCode: number;
+    metadata?: object;
+  }): void {
+    try {
+      sendLogToBackend(
+        {
+          level,
+          message,
+          requestBody,
+          requestResponse,
+          statusCode,
+          apiKey: this.apiKey,
+          metadata,
+        },
+        this.baseUrl,
+      );
+    } catch (error) {
+      console.error('Error sending log:', error);
+    }
   }
 
   public async flushEvents(): Promise<void> {
