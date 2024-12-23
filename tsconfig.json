@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
     "declaration": true, // Generate .d.ts files
-    "emitDeclarationOnly": true, // Emit only type declarations
-    "outDir": "dist", // Output folder for type declarations
-    "module": "CommonJS", // Ensure compatibility with Node.js
-    "target": "ESNext", // Target modern JavaScript
-    "strict": true
+    "emitDeclarationOnly": false, // Include both .js and .d.ts
+    "outDir": "./dist", // Output directory for compiled files
+    "strict": true, // Enable strict type checking
+    "module": "CommonJS", // Use CommonJS for compatibility
+    "target": "ESNext" // Target modern JS
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
