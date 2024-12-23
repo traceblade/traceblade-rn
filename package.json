@@ -15,8 +15,15 @@
     "axios": "^1.7.9",
     "install": "^0.13.0",
     "npm": "^10.9.2",
-    "pre-commit": "^1.2.2",
     "react-native": "^0.76.5",
     "react-native-threads": "^0.0.19"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": {
+    "run": [
+      "build"
+    ]
   }
 }
