@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true, // Generate .d.ts files
     "emitDeclarationOnly": false, // Include both .js and .d.ts
-    "outDir": "./dist", // Output directory for compiled files
+    "outDir": "dist", // Output directory for compiled files
     "strict": true, // Enable strict type checking
     "module": "CommonJS", // Use CommonJS for compatibility
     "target": "ESNext" // Target modern JS

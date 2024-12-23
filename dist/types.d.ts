@@ -3,6 +3,11 @@ export interface EventMetadata {
     [key: string]: any;
 }
 export interface Event {
+    eventName: string;
+    timestamp: number;
+    anonymousId?: string;
+    createdAt?: number;
+    userInfo?: object;
+    metadata?: object;
     apiKey: string;
-    eventMetadata: EventMetadata;
 }
