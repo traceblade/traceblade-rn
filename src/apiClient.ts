@@ -3,7 +3,7 @@ import { Event, LogType } from './types';
 
 import { API_PATH } from './constants/api';
 import { getPath } from './constants/helper';
-import { createUniqueTraceId } from './helper/logs';
+import { getRandomId } from './helper/helper';
 
 export const sendEventToBackend = async (
   event: Event,
@@ -32,7 +32,7 @@ export const sendLogToBackend = async (
   const path = getPath(API_PATH.PUSH_EVENTS, baseUrl);
   const temp = {
     ...log,
-    traceId: createUniqueTraceId(),
+    traceId: getRandomId(),
     source: 'traceblade-rn-sdk',
   };
   try {

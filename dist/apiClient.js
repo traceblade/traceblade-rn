@@ -4,7 +4,7 @@ exports.sendLogToBackend = exports.sendEventToBackend = void 0;
 const axios_1 = require("axios");
 const api_1 = require("./constants/api");
 const helper_1 = require("./constants/helper");
-const logs_1 = require("./helper/logs");
+const helper_2 = require("./helper/helper");
 const sendEventToBackend = async (event, baseUrl) => {
     const path = (0, helper_1.getPath)(api_1.API_PATH.PUSH_EVENTS, baseUrl);
     console.log('path', path);
@@ -27,7 +27,7 @@ const sendLogToBackend = async (log, baseUrl) => {
     const path = (0, helper_1.getPath)(api_1.API_PATH.PUSH_EVENTS, baseUrl);
     const temp = {
         ...log,
-        traceId: (0, logs_1.createUniqueTraceId)(),
+        traceId: (0, helper_2.getRandomId)(),
         source: 'traceblade-rn-sdk',
     };
     try {

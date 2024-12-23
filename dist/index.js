@@ -4,7 +4,7 @@ const react_native_1 = require("react-native");
 const eventQueue_1 = require("./eventQueue");
 const apiClient_1 = require("./apiClient");
 const async_storage_1 = require("@react-native-async-storage/async-storage");
-const user_1 = require("./helper/user");
+const helper_1 = require("./helper/helper");
 const api_1 = require("./constants/api");
 class TracebladeSDK {
     apiKey;
@@ -86,7 +86,7 @@ class TracebladeSDK {
             const anonymouseId = await async_storage_1.default.getItem('tb-anonymousId');
             console.log('ANONYMOUS_ID', anonymouseId);
             if (!anonymouseId) {
-                const newAnonymousId = (0, user_1.generateUserId)();
+                const newAnonymousId = (0, helper_1.getRandomId)();
                 await async_storage_1.default.setItem('tb-anonymousId', newAnonymousId);
                 return newAnonymousId;
             }
