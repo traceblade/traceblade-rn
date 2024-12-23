@@ -13,14 +13,11 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^2.1.0",
     "axios": "^1.7.9",
-    "install": "^0.13.0",
-    "npm": "^10.9.2",
+    "expo-crypto": "^14.0.1",
     "react-native": "^0.76.5",
     "react-native-get-random-values": "^1.11.0",
     "react-native-threads": "^0.0.19",
-    "react-native-web-worker": "^1.0.0",
-    "uuid": "^11.0.3",
-    "uuid4": "^2.0.3"
+    "react-native-web-worker": "^1.0.0"
   },
   "devDependencies": {
     "pre-commit": "^1.2.2"

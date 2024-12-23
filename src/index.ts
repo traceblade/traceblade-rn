@@ -2,9 +2,7 @@ import { AppState, AppStateStatus } from 'react-native';
 import { processEventQueue, queueEvent } from './eventQueue';
 import { sendEventToBackend } from './apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import 'react-native-get-random-values';
-
-import { v4 as uuidv4 } from 'uuid';
+import { generateUserId } from './helper/user';
 import { BASE_URL } from './constants/api';
 
 class TracebladeSDK {
@@ -82,7 +80,7 @@ class TracebladeSDK {
   private async getAnonymousId(): Promise<string> {
     const anonymouseId = await AsyncStorage.getItem('tb-anonymousId');
     if (!anonymouseId) {
-      const newAnonymousId = uuidv4();
+      const newAnonymousId = await generateUserId();
       await AsyncStorage.setItem('tb-anonymousId', newAnonymousId);
       return newAnonymousId;
     }

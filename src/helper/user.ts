@@ -1,6 +1,6 @@
 import * as Crypto from 'expo-crypto';
 
-const generateUserId = async () => {
+export const generateUserId = async () => {
   // Generate 16 random bytes
   const randomBytes = await Crypto.getRandomBytesAsync(16);
 
@@ -12,5 +12,3 @@ const generateUserId = async () => {
   console.log('Generated User ID:', userId);
   return userId;
 };
-
-generateUserId();
