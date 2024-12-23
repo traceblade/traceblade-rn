@@ -41,25 +41,29 @@ class TracebladeSDK {
   };
 
   public async trackEvent(eventName: string, metadata: object): Promise<void> {
-    const anonymousId = await this.getAnonymousId();
-    const event = {
-      eventName: eventName,
-      timestamp: Date.now(),
-      anonymousId,
-      userId: this.userId || 'null',
-      createdAt: Date.now(),
-      userInfo: this.userInfo || {},
-      metadata,
-      apiKey: this.apiKey,
-    };
-    await sendEventToBackend(event, this.baseUrl);
-    console.log('Event sent to backend:', this.currentAppState);
-    if (this.currentAppState.match(/inactive|background/)) {
-      await queueEvent(event);
+    try {
+      const anonymousId = await this.getAnonymousId();
+      const event = {
+        eventName: eventName,
+        timestamp: Date.now(),
+        anonymousId,
+        userId: this.userId || 'null',
+        createdAt: Date.now(),
+        userInfo: this.userInfo || {},
+        metadata,
+        apiKey: this.apiKey,
+      };
+      await sendEventToBackend(event, this.baseUrl);
+      console.log('Event sent to backend:', this.currentAppState);
+      if (this.currentAppState.match(/inactive|background/)) {
+        await queueEvent(event);
+      }
+      console.log('Tracking event:', event);
+    } catch (error) {
+      console.error('Error tracking event:', error);
     }
 
     // Logic to queue and send events
-    console.log('Tracking event:', event);
   }
 
   public async flushEvents(): Promise<void> {
