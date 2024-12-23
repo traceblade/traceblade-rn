@@ -3,6 +3,7 @@ import { processEventQueue, queueEvent } from './eventQueue';
 import { sendEventToBackend } from './apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuidv4 } from 'uuid';
+import { CONSTANTS } from './constants/api';
 
 class TracebladeSDK {
   private apiKey: string;
@@ -11,13 +12,13 @@ class TracebladeSDK {
   private baseUrl: string;
   private userId: string | null = null;
   private userInfo: object | null = null;
-  constructor(apiKey: string, baseUrl: string) {
+  constructor(apiKey: string, baseUrl?: string) {
     if (!apiKey) {
       throw new Error('API key is required to initialize Traceblade SDK.');
     }
     this.apiKey = apiKey;
     this.currentAppState = AppState.currentState;
-    this.baseUrl = baseUrl;
+    this.baseUrl = baseUrl || CONSTANTS.BASE_URL;
 
     // Add event listener and store the subscription
     this.appStateSubscription = AppState.addEventListener(
