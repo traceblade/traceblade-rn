@@ -3,7 +3,7 @@ import { processEventQueue, queueEvent } from './eventQueue';
 import { sendEventToBackend } from './apiClient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { v4 as uuidv4 } from 'uuid';
-import { CONSTANTS } from './constants/api';
+import { BASE_URL } from './constants/api';
 
 class TracebladeSDK {
   private apiKey: string;
@@ -18,7 +18,7 @@ class TracebladeSDK {
     }
     this.apiKey = apiKey;
     this.currentAppState = AppState.currentState;
-    this.baseUrl = baseUrl || CONSTANTS.BASE_URL;
+    this.baseUrl = baseUrl || BASE_URL;
 
     // Add event listener and store the subscription
     this.appStateSubscription = AppState.addEventListener(
