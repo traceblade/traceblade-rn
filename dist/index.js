@@ -56,6 +56,22 @@ class TracebladeSDK {
         }
         // Logic to queue and send events
     }
+    log({ level, message, requestBody, requestResponse, statusCode, metadata, }) {
+        try {
+            (0, apiClient_1.sendLogToBackend)({
+                level,
+                message,
+                requestBody,
+                requestResponse,
+                statusCode,
+                apiKey: this.apiKey,
+                metadata,
+            }, this.baseUrl);
+        }
+        catch (error) {
+            console.error('Error sending log:', error);
+        }
+    }
     async flushEvents() {
         console.log('Flushing events...');
         await (0, eventQueue_1.processEventQueue)(this.apiKey, this.baseUrl);
