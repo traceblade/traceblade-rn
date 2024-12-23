@@ -46,7 +46,7 @@ class TracebladeSDK {
       const event = {
         eventName: eventName,
         timestamp: Date.now(),
-        anonymousId,
+        anonymousId: anonymousId || 'null',
         userId: this.userId || 'null',
         createdAt: Date.now(),
         userInfo: this.userInfo || {},
@@ -77,14 +77,19 @@ class TracebladeSDK {
     this.userInfo = userInfo;
   }
 
-  private async getAnonymousId(): Promise<string> {
-    const anonymouseId = await AsyncStorage.getItem('tb-anonymousId');
-    if (!anonymouseId) {
-      const newAnonymousId = await generateUserId();
-      await AsyncStorage.setItem('tb-anonymousId', newAnonymousId);
-      return newAnonymousId;
+  private async getAnonymousId(): Promise<string | null> {
+    try {
+      const anonymouseId = await AsyncStorage.getItem('tb-anonymousId');
+      if (!anonymouseId) {
+        const newAnonymousId = generateUserId();
+        await AsyncStorage.setItem('tb-anonymousId', newAnonymousId);
+        return newAnonymousId;
+      }
+      return anonymouseId;
+    } catch (error) {
+      console.error('Error getting anonymous id:', error);
+      throw error;
     }
-    return anonymouseId;
   }
 
   public destroy(): void {
