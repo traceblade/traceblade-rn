@@ -11,12 +11,11 @@
   "author": "koundinya Gavicherla",
   "license": "ISC",
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^2.1.0",
     "axios": "^1.7.9",
-    "expo-crypto": "^14.0.1",
-    "react-native": "^0.76.5",
-    "react-native-get-random-values": "^1.11.0",
-    "react-native-threads": "^0.0.19",
-    "react-native-web-worker": "^1.0.0"
+    "expo-crypto": "^14.0.1"
+  },
+  "peerDependencies": {
+    "react-native": ">=0.76.5",
+    "@react-native-async-storage/async-storage": "2.1.0"
   }
 }
