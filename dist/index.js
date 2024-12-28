@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_native_1 = require("react-native");
 const eventQueue_1 = require("./eventQueue");
 const apiClient_1 = require("./apiClient");
-const async_storage_1 = require("@react-native-async-storage/async-storage");
 const helper_1 = require("./helper/helper");
 const api_1 = require("./constants/api");
 class TracebladeSDK {
@@ -13,6 +12,7 @@ class TracebladeSDK {
     baseUrl;
     userId = null;
     userInfo = null;
+    anonymousId = null;
     constructor(apiKey, baseUrl) {
         if (!apiKey) {
             throw new Error('API key is required to initialize Traceblade SDK.');
@@ -82,21 +82,14 @@ class TracebladeSDK {
         this.userInfo = userInfo;
     }
     async getAnonymousId() {
-        try {
-            const anonymouseId = await async_storage_1.default.getItem('tb-anonymousId');
-            console.log('ANONYMOUS_ID', anonymouseId);
-            if (!anonymouseId) {
-                const newAnonymousId = (0, helper_1.getRandomId)();
-                await async_storage_1.default.setItem('tb-anonymousId', newAnonymousId);
-                return newAnonymousId;
-            }
-            console.log('EXISTING_ANONYMOUS_ID', anonymouseId);
-            return anonymouseId;
+        if (!this.anonymousId) {
+            this.anonymousId = (0, helper_1.getRandomId)();
+            console.log('Generated new ANONYMOUS_ID', this.anonymousId);
         }
-        catch (error) {
-            console.error('Error getting anonymous id:', error);
-            throw error;
+        else {
+            console.log('Using existing ANONYMOUS_ID', this.anonymousId);
         }
+        return this.anonymousId;
     }
     destroy() {
         // Properly clean up the AppState listener

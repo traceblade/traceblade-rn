@@ -5,6 +5,7 @@ declare class TracebladeSDK {
     private baseUrl;
     private userId;
     private userInfo;
+    private anonymousId;
     constructor(apiKey: string, baseUrl?: string);
     private handleAppStateChange;
     trackEvent(eventName: string, metadata: object): Promise<void>;
