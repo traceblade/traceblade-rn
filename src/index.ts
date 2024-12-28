@@ -112,14 +112,21 @@ class TracebladeSDK {
     this.userInfo = userInfo;
   }
 
-  private async getAnonymousId(): Promise<string> {
-    if (!this.anonymousId) {
-      this.anonymousId = getRandomId();
-      console.log('Generated new ANONYMOUS_ID', this.anonymousId);
-    } else {
-      console.log('Using existing ANONYMOUS_ID', this.anonymousId);
+  private async getAnonymousId(): Promise<string | null> {
+    try {
+      const anonymouseId = await AsyncStorage.getItem('tb-anonymousId');
+      console.log('ANONYMOUS_ID', anonymouseId);
+      if (!anonymouseId) {
+        const newAnonymousId = getRandomId();
+        await AsyncStorage.setItem('tb-anonymousId', newAnonymousId);
+        return newAnonymousId;
+      }
+      console.log('EXISTING_ANONYMOUS_ID', anonymouseId);
+      return anonymouseId;
+    } catch (error) {
+      console.error('Error getting anonymous id:', error);
+      throw error;
     }
-    return this.anonymousId;
   }
 
   public destroy(): void {
